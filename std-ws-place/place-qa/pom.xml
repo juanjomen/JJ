@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>std-ws-place</artifactId>
+    <groupId>org.familysearch.standards</groupId>
+    <version>2.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>org.familysearch.standards.qa</groupId>
+  <artifactId>place-qa</artifactId>
+  <version>2.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>std-qa-place</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.familysearch.standards</groupId>
+      <artifactId>std-ws-place-model</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-bundle</artifactId>
+      <version>${jersey-bundle.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${assertj-core.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>${testng.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+    </dependency>
+  </dependencies>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <servlet.port>8080</servlet.port>
+    <hostname>localhost</hostname>
+    <username>admin</username>
+    <build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
+    <jersey-bundle.version>1.18</jersey-bundle.version>
+    <jersey.version>1.18</jersey.version>
+    <assertj-core.version>1.5.0</assertj-core.version>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>${build-helper-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>add-assert-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>src/asserts/java</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${maven-failsafe-plugin.version}</version>
+        <configuration>
+          <skipTests>true</skipTests>
+          <skipITs>true</skipITs>
+        </configuration>
+        <!--<configuration>-->
+          <!--<includes>-->
+            <!--<include>**/IT*.java</include>-->
+          <!--</includes>-->
+        <!--</configuration>-->
+        <!--<executions>-->
+          <!--<execution>-->
+            <!--<id>integration-test</id>-->
+            <!--<goals>-->
+              <!--<goal>integration-test</goal>-->
+            <!--</goals>-->
+          <!--</execution>-->
+          <!--<execution>-->
+            <!--<id>verify</id>-->
+            <!--<goals>-->
+              <!--<goal>verify</goal>-->
+            <!--</goals>-->
+          <!--</execution>-->
+        <!--</executions>-->
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
