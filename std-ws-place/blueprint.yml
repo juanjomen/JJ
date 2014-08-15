@@ -24,6 +24,7 @@ app:
       dev-aws:
         beanstalk:
           path_to_artifact: place-webservice/target/std-ws-place.war
+          acceptance_test_executable: std-ws-place/acceptance-ws/target/acceptance-ws-ws.war
           stack_name: 64bit Amazon Linux 2014.03 v1.0.3 running Tomcat 7 Java 7
           instance_type: r3.large
           vpc_name: development-fh5-useast1-primary-1

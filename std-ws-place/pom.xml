@@ -642,6 +642,7 @@
          <module>place-qa</module>
          <module>acceptance</module>
     -->
+    <module>acceptance-ws</module>
   </modules>
 
 </project>
