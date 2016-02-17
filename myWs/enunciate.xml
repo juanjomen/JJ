@@ -1,0 +1,22 @@
+<enunciate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="http://enunciate.webcohesion.com/schemas/enunciate-2.0.0.xsd">
+
+  <description package="MyResource"/>
+
+  <!--import these packages for documentation-->
+  <api-classes>
+    <include pattern="myWs.JJLearning.**"/>
+  </api-classes>
+
+  <facets>
+    <exclude name="internal.endpoint"/>
+  </facets>
+
+  <modules>
+    <ruby-json-client disabled="true"/>
+    <php-json-client disabled="true"/>
+    <php-xml-client disabled="true"/>
+    <gwt-json-overlay disabled="true"/>
+  </modules>
+
+</enunciate>

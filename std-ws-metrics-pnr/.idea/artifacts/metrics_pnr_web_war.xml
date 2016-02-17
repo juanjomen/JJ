@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="metrics-pnr-web:war">
+    <output-path>$PROJECT_DIR$/metrics-pnr-web/target</output-path>
+    <root id="archive" name="metrics-pnr-web.war">
+      <element id="artifact" artifact-name="metrics-pnr-web:war exploded" />
+    </root>
+  </artifact>
+</component>

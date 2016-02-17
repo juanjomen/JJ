@@ -1,0 +1,1 @@
+ALTER TABLE name ALTER COLUMN normalized_text SET NOT NULL;

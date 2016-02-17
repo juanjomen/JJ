@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="jjweb:war">
+    <output-path>$PROJECT_DIR$/jjweb/target</output-path>
+    <root id="archive" name="jjweb.war">
+      <element id="artifact" artifact-name="jjweb:war exploded" />
+    </root>
+  </artifact>
+</component>

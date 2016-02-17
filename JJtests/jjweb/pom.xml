@@ -1,0 +1,196 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>jjTestsRoot</artifactId>
+        <groupId>myTests</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>jjweb</artifactId>
+    <packaging>war</packaging>
+    <name>jjweb Maven Webapp</name>
+    <url>http://maven.apache.org</url>
+
+    <build>
+        <finalName>jjweb</finalName>
+
+        <plugins>
+            <!--      <plugin>
+                    <groupId>org.codehaus.cargo</groupId>
+                    <artifactId>cargo-maven2-plugin</artifactId>
+                    <configuration>
+                      <container>
+                        <containerId>tomcat7x</containerId>
+                        <zipUrlInstaller>
+                          <url>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.30/bin/apache-tomcat-7.0.30.zip
+                          </url>
+                        </zipUrlInstaller>
+                        <timeout>600000</timeout>
+                      </container>
+                      <configuration>
+                        <properties>
+                          <cargo.jvmargs>-Xdebug -Xnoagent -Djava.compiler=NONE
+                            -Xrunjdwp:transport=dt_socket,server=y,suspend=${cargo.debug.startup},address=5005
+                          </cargo.jvmargs>
+                          <cargo.logging>medium</cargo.logging>
+                          <cargo.servlet.port>8080</cargo.servlet.port>
+                        </properties>
+                        <home>${project.build.directory}/tomcat7x</home>
+                      </configuration>
+                      <deployables>
+                        <deployable>
+                          <properties>
+                            <context>${project.build.finalName}</context>
+                          </properties>
+                        </deployable>
+                      </deployables>
+                    </configuration>
+                  </plugin> -->
+
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version> 1.4.16</version>
+                <configuration>
+                    <container>
+                        <containerId>tomcat7x</containerId>
+                        <zipUrlInstaller>
+                            <downloadDir>${project.basedir}/tomcat-install</downloadDir>
+                            <extractDir>${project.basedir}/tomcat-install</extractDir>
+                            <!--<installDir>${project.basedir}/tomcat-install</installDir>-->
+                        </zipUrlInstaller>
+                        <timeout>1200000</timeout>
+                        <append>false</append>
+                        <systemProperties>
+                            <log4j.configuration>file:${project.basedir}/src/test/resources/log4j.properties
+                            </log4j.configuration>
+                        </systemProperties>
+                    </container>
+                    <configuration>
+                        <home>${project.build.directory}/tomcat7x</home>
+                        <properties>
+                            <cargo.servlet.port>8080</cargo.servlet.port>
+                            <cargo.tomcat.ajp.port>8009</cargo.tomcat.ajp.port>
+                            <cargo.rmi.port>8011</cargo.rmi.port>
+                            <cargo.jvmargs>-XX:PermSize=256m -XX:MaxPermSize=256m
+                                -Dorg.apache.coyote.USE_CUSTOM_STATUS_MSG_IN_HEADER=true
+                                -Dorg.apache.coyote.USE_CUSTOM_STATUS_MSG_IN_HEADER=true -Xdebug -Xnoagent
+                                -Djava.compiler=NONE
+                            </cargo.jvmargs>
+                        </properties>
+                    </configuration>
+                    <deployables>
+                        <deployable>
+                            <properties>
+                                <context>${project.build.finalName}</context>
+                            </properties>
+                        </deployable>
+                    </deployables>
+                </configuration>
+            </plugin>
+
+            <!--<plugin>-->
+                <!--<groupId>org.familysearch.ws</groupId>-->
+                <!--<artifactId>maven-familysearch-api-plugin</artifactId>-->
+                <!--<version> 2.44.b20</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal> assemble</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                    <!--<execution>-->
+                        <!--<id>install-and-deploy</id>-->
+                        <!--<goals/>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--&lt;!&ndash;          <configFile>src/conf/enunciate-config.xml</configFile> &ndash;&gt;-->
+                    <!--<mediaTypes>-->
+                        <!--<mediaType>-->
+                            <!--<id>name</id>-->
+                            <!--<default>true</default>-->
+                            <!--<type>application/standards-names-v2+xml</type>-->
+                            <!--<namespace>http://familysearch.org/standards/names/2.0</namespace>-->
+                        <!--</mediaType>-->
+                        <!--<mediaType>-->
+                            <!--<id>name-json</id>-->
+                            <!--<default>false</default>-->
+                            <!--<type>application/standards-names-v2+json</type>-->
+                        <!--</mediaType>-->
+                        <!--<mediaType>-->
+                            <!--<id>atom</id>-->
+                            <!--<type>application/atom+xml</type>-->
+                            <!--<namespace>http://www.w3.org/2005/Atom</namespace>-->
+                        <!--</mediaType>-->
+                    <!--</mediaTypes>-->
+                    <!--<enunciateArtifactId/>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version> 0.7.4.201502262128</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.enunciate</groupId>
+                <artifactId>maven-enunciate-spring-plugin</artifactId>
+                <version> 1.31</version>
+                <configuration>
+                    <configFile>${root.basedir}/enunciate.xml</configFile>
+                    <enunciateArtifactId/>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+
+
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring</artifactId>
+            <version>2.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-core</artifactId>
+            <version>1.19-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+</project>

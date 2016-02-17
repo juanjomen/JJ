@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+                      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+                      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- ====================================================== -->
+    <!-- Allow for Java environment properties to be used, etc. -->
+    <!-- ====================================================== -->
+    <context:annotation-config/>
+    <tx:annotation-driven transaction-manager="txManager"/>
+    <context:property-placeholder />
+
+    <!-- ========================= -->
+    <!-- Web Service Providers ... -->
+    <!-- ========================= -->
+    <bean id="webServiceHealthCheck" class="org.familysearch.standards.services.WebServiceHealthCheck"/>
+    <!--<bean id="webServiceName"        class="org.familysearch.standards.name.web.services.WebServiceName"/>-->
+    <!--<bean id="webServiceSearch"      class="org.familysearch.standards.name.web.services.WebServiceSearch"/>-->
+    <!--<bean id="webServiceType"        class="org.familysearch.standards.name.web.services.WebServiceType"/>-->
+
+    <bean id="readableService" class="org.familysearch.standards.services.ReadableMetricsService">
+        <constructor-arg><ref bean="dataSource"/></constructor-arg>
+    </bean>
+
+    <bean id="writeableService" class="org.familysearch.standards.services.WriteableMetricsService">
+        <constructor-arg><ref bean="dataSource"/></constructor-arg>
+    </bean>
+
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="myPostGresDriver" class="org.postgresql.Driver"/>
+
+    <!-- ===================================================== -->
+    <!-- Beans to use when running in an AWS-CLOUD environment -->
+    <!-- ===================================================== -->
+    <beans profile="aws-cloud">
+        <bean id="sasObjectRequester" class="org.familysearch.sas.client.ObjectRequester"/>
+
+        <bean id="dataSource" class="org.familysearch.engage.foundation.dbcp.SasEnabledBasicDataSource"
+              p:driver-ref="myPostGresDriver"
+              p:driverClassName="org.postgresql.Driver"
+              p:sasObjectName="ps-${FS_BLUEPRINT_NAME}-${FS_SYSTEM_NAME}-metrics-pnr-db"
+              p:objectRequester-ref="sasObjectRequester"
+              p:initialSize="5"
+              p:maxTotal="20"
+              p:validationQuery="select 1"
+              p:testOnBorrow="true"/>
+    </beans>
+
+    <!-- ================================================================ -->
+    <!-- Beans to use when running locally, with a pre-defined DataSource -->
+    <!-- ================================================================ -->
+    <beans profile="local-datasource">
+
+        <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+            <property name="driverClassName" value="org.postgresql.Driver"/>
+            <property name="url" value="jdbc:postgresql://${NAME_DB_ADDRESS}:${NAME_DB_PORT}/${PNR_DB_DATABASENAME}"/>
+            <property name="username" value="${NAME_DB_USERNAME}"/>
+            <property name="password" value="${NAME_DB_PASSWORD}"/>
+        </bean>
+    </beans>
+</beans>

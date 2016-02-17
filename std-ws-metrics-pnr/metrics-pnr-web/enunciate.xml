@@ -1,0 +1,31 @@
+<enunciate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="http://enunciate.webcohesion.com/schemas/enunciate-2.0.0.xsd">
+
+    <description package="org.familysearch.standards"/>
+
+    <!--import these packages for documentation-->
+    <api-classes>
+        <include pattern="org.familysearch.standards.**"/>
+    </api-classes>
+
+
+    <facets>
+        <exclude name="internal.endpoint"/>
+    </facets>
+
+
+    <modules>
+
+        <!--<webapp mergeWebXML="web.xml"/>-->
+
+        <!--<spring-app disabled="false">-->
+            <!--<springImport uri="classpath:/spring-webapp-config.xml"/>-->
+        <!--</spring-app>-->
+
+        <ruby-json-client disabled="true"/>
+        <php-json-client disabled="true"/>
+        <php-xml-client disabled="true"/>
+        <gwt-json-overlay disabled="true"/>
+    </modules>
+
+</enunciate>

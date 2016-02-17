@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>metrics-web</artifactId>
+    <name>PLAT-std-ws-metrics-web</name>
+    <packaging>war</packaging>
+
+    <parent>
+        <groupId>org.familysearch.standards</groupId>
+        <artifactId>std-ws-metrics</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <properties>
+        <serviceId>standards</serviceId>
+        <!--
+            <config.name>localhost</config.name>
+            <config.path>../cv-name-api-config/src/main/resources/${config.name}</config.path>
+        -->
+        <!--<reference.name>dev</reference.name>-->
+        <!--<reference.path>../cv-webservice-config/target/classes/${config.name}</reference.path>-->
+
+        <!--
+                set JAVA_OPTS=-Xms500m
+                set JAVA_OPTS=%JAVA_OPTS% -Xmx2400m
+                set JAVA_OPTS=%JAVA_OPTS% -Xss64m
+                set JAVA_OPTS=%JAVA_OPTS% -XX:MaxPermSize=256m
+        -->
+        <cargo.additional.jvmargs>
+            -Xms500m
+            -Xmx2400m
+            -Xss64m
+            -XX:MaxPermSize=256m
+            -DCV_DB_ADDRESS=localhost
+            -DCV_DB_PORT=5432
+            -DCV_DB_DATABASENAME=std-ws-name-db
+            -DCV_DB_USERNAME=cv_user1
+            -DCV_DB_PASSWORD=cv_user1
+            -Dspring.profiles.active=local-datasource
+            -DL1_CACHE_MAX_ENTRIES=3000
+            -DL2_CACHE_MAX_ENTRIES=1000
+            -DL3_CACHE_MAX_ENTRIES=50
+        </cargo.additional.jvmargs>
+        <!-- get more jvm args by:   mvn -Dcargo.additional.jvmargs="-DpropertyName=propertyValue" -->
+        <cargo.debug.port>5005</cargo.debug.port>
+        <cargo.debug.suspend>n</cargo.debug.suspend>
+        <cargo.enable.jersey.logging>true</cargo.enable.jersey.logging>
+        <cargo.show.properties>true</cargo.show.properties>
+        <cargo.show.property.sets>true</cargo.show.property.sets>
+        <cargo.skipTests>false</cargo.skipTests>
+        <cargo.tomcat.port>8080</cargo.tomcat.port>
+
+        <!--<reference.path>../cv-webservice-config/target/classes/${reference.name}</reference.path>-->
+        <tomcat.url>
+            https://mvn.fsglobal.net/service/local/repositories/atlassian/content/org/apache/tomcat/apache-tomcat/7.0.53/apache-tomcat-7.0.53.zip
+        </tomcat.url>
+
+    </properties>
+
+    <build>
+        <finalName>std-ws-metrics</finalName>
+
+        <plugins>
+            <!--      <plugin>
+                    <groupId>org.codehaus.cargo</groupId>
+                    <artifactId>cargo-maven2-plugin</artifactId>
+                    <configuration>
+                      <container>
+                        <containerId>tomcat7x</containerId>
+                        <zipUrlInstaller>
+                          <url>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.30/bin/apache-tomcat-7.0.30.zip
+                          </url>
+                        </zipUrlInstaller>
+                        <timeout>600000</timeout>
+                      </container>
+                      <configuration>
+                        <properties>
+                          <cargo.jvmargs>-Xdebug -Xnoagent -Djava.compiler=NONE
+                            -Xrunjdwp:transport=dt_socket,server=y,suspend=${cargo.debug.startup},address=5005
+                          </cargo.jvmargs>
+                          <cargo.logging>medium</cargo.logging>
+                          <cargo.servlet.port>8080</cargo.servlet.port>
+                        </properties>
+                        <home>${project.build.directory}/tomcat7x</home>
+                      </configuration>
+                      <deployables>
+                        <deployable>
+                          <properties>
+                            <context>${project.build.finalName}</context>
+                          </properties>
+                        </deployable>
+                      </deployables>
+                    </configuration>
+                  </plugin> -->
+
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <configuration>
+                    <skip>${cargo.skipTests}</skip>
+                    <container>
+                        <containerId>tomcat7x</containerId>
+                        <zipUrlInstaller>
+                            <url>${tomcat.url}</url>
+                            <downloadDir>${project.basedir}/tomcat-install</downloadDir>
+                            <extractDir>${project.basedir}/tomcat-install</extractDir>
+                            <!--<installDir>${project.basedir}/tomcat-install</installDir>-->
+                        </zipUrlInstaller>
+                        <timeout>1200000</timeout>
+                        <append>false</append>
+                        <systemProperties>
+                            <log4j.configuration>file:${project.basedir}/src/test/resources/log4j.properties
+                            </log4j.configuration>
+                        </systemProperties>
+                    </container>
+                    <configuration>
+                        <home>${project.build.directory}/tomcat7x</home>
+                        <properties>
+                            <cargo.servlet.port>8080</cargo.servlet.port>
+                            <cargo.tomcat.ajp.port>8009</cargo.tomcat.ajp.port>
+                            <cargo.rmi.port>8011</cargo.rmi.port>
+                            <cargo.jvmargs>-XX:PermSize=256m -XX:MaxPermSize=256m
+                                -Dorg.apache.coyote.USE_CUSTOM_STATUS_MSG_IN_HEADER=true
+                                -Dorg.apache.coyote.USE_CUSTOM_STATUS_MSG_IN_HEADER=true -Xdebug -Xnoagent
+                                -Djava.compiler=NONE
+                                -Xrunjdwp:transport=dt_socket,address=${cargo.debug.port},server=y,suspend=${cargo.debug.suspend}
+                            </cargo.jvmargs>
+                        </properties>
+                    </configuration>
+                    <deployables>
+                        <deployable>
+                            <properties>
+                                <context>${project.build.finalName}</context>
+                            </properties>
+                        </deployable>
+                    </deployables>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.familysearch.ws</groupId>
+                <artifactId>maven-familysearch-api-plugin</artifactId>
+                <version>${api-familysearch-rt.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>assemble</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>install-and-deploy</id>
+                        <goals/>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!--          <configFile>src/conf/enunciate-config.xml</configFile> -->
+                    <mediaTypes>
+                        <mediaType>
+                            <id>name</id>
+                            <default>true</default>
+                            <type>application/standards-names-v2+xml</type>
+                            <namespace>http://familysearch.org/standards/names/2.0</namespace>
+                        </mediaType>
+                        <!--<mediaType>-->
+                            <!--<id>name-json</id>-->
+                            <!--<default>false</default>-->
+                            <!--<type>application/standards-names-v2+json</type>-->
+                        <!--</mediaType>-->
+                        <!--<mediaType>-->
+                            <!--<id>atom</id>-->
+                            <!--<type>application/atom+xml</type>-->
+                            <!--<namespace>http://www.w3.org/2005/Atom</namespace>-->
+                        <!--</mediaType>-->
+                    </mediaTypes>
+                    <enunciateArtifactId/>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.enunciate</groupId>
+                <artifactId>maven-enunciate-spring-plugin</artifactId>
+                <version>${enunciate-spring3-app-rt.version}</version>
+                <configuration>
+                    <configFile>${root.basedir}/enunciate.xml</configFile>
+                    <enunciateArtifactId/>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.familysearch.standards</groupId>
+            <artifactId>std-ws-metrics-model</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.familysearch.standards</groupId>
+            <artifactId>std-ws-metrics-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.familysearch.ws</groupId>
+            <artifactId>api-familysearch-rt</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.familysearch.config</groupId>
+                    <artifactId>fs-config</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>${commons-dbcp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.enunciate</groupId>
+            <artifactId>enunciate-spring3-app-rt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.enunciate</groupId>
+            <artifactId>enunciate-core-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.enunciate</groupId>
+            <artifactId>enunciate-jersey-rt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.familysearch.engage</groupId>
+            <artifactId>foundation-commons-sas-dbcp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.familysearch.sas</groupId>
+            <artifactId>sas-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.familysearch.standards</groupId>
+            <artifactId>std-lib-core-api</artifactId>
+        </dependency>
+
+        <!-- Testing dependencies -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-bundle</artifactId>
+            <version>1.13</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-core</artifactId>
+            <version>1.19-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>jsr311-api</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <!--
+            <dependency>
+              <groupId>com.h2database</groupId>
+              <artifactId>h2</artifactId>
+            </dependency>
+        -->
+
+    </dependencies>
+
+
+
+
+</project>

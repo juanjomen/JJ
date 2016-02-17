@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error" name="XMLConfig" packages="org.apache.logging.log4j">
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %-5p [%c{1}] (%t) %m %throwable{15}  %X{USCTX_UserName}  %X{USCTX_SessionID}  %X{USCTX_WorkerID}   %X{USCTX_QMessageID} %n" />
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.familysearch.standards" level="info" />
+        <Logger name="org.apache.solr" level="warn" />
+        <Root level="warn">
+            <AppenderRef ref="STDOUT" />
+        </Root>
+    </Loggers>
+</Configuration>

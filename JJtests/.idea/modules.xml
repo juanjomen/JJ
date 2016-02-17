@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/JJtests.iml" filepath="$PROJECT_DIR$/JJtests.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jjapi/jjapi.iml" filepath="$PROJECT_DIR$/jjapi/jjapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jjmodel/jjmodel.iml" filepath="$PROJECT_DIR$/jjmodel/jjmodel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jjweb/jjweb.iml" filepath="$PROJECT_DIR$/jjweb/jjweb.iml" />
+    </modules>
+  </component>
+</project>

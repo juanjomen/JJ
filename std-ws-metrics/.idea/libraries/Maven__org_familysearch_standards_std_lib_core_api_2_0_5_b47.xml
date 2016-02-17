@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.familysearch.standards:std-lib-core-api:2.0.5.b47">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/familysearch/standards/std-lib-core-api/2.0.5.b47/std-lib-core-api-2.0.5.b47.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/familysearch/standards/std-lib-core-api/2.0.5.b47/std-lib-core-api-2.0.5.b47-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/familysearch/standards/std-lib-core-api/2.0.5.b47/std-lib-core-api-2.0.5.b47-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

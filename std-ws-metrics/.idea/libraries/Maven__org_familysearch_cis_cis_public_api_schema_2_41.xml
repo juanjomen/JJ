@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.familysearch.cis:cis-public-api-schema:2.41">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/familysearch/cis/cis-public-api-schema/2.41/cis-public-api-schema-2.41.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/familysearch/cis/cis-public-api-schema/2.41/cis-public-api-schema-2.41-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/familysearch/cis/cis-public-api-schema/2.41/cis-public-api-schema-2.41-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

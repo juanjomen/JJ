@@ -1,0 +1,100 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.familysearch.standards</groupId>
+  <artifactId>std-ws-metrics-pr</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>metrics-pnr-api</module>
+    <module>metrics-pnr-model</module>
+    <module>metrics-pnr-web</module>
+  </modules>
+  <packaging>pom</packaging>
+
+  <name>std-ws-metrics-pr</name>
+
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <enunciate.version>2.1.1</enunciate.version>
+    <junit.version>3.8.1</junit.version>
+    <cargo.version>1.4.16</cargo.version>
+    <tomcat.url>
+      https://mvn.fsglobal.net/service/local/repositories/atlassian/content/org/apache/tomcat/apache-tomcat/7.0.53/apache-tomcat-7.0.53.zip
+    </tomcat.url>
+    <std-lib-core-api.version>2.0.5.b64</std-lib-core-api.version>
+    <spring-jdbc.vesion>4.1.6.RELEASE</spring-jdbc.vesion>
+    <postgresql.version> 9.4-1201-jdbc41</postgresql.version>
+    <sas-client.version>1.37.b189</sas-client.version>
+    <engage-all.version>1.1.b199</engage-all.version>
+  </properties>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.webcohesion.enunciate</groupId>
+          <artifactId>enunciate-maven-plugin</artifactId>
+          <version>${enunciate.version}</version>
+          <executions>
+            <execution>
+              <id>assemble</id>
+              <goals>
+                <goal>assemble</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+  </build>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.webcohesion.enunciate</groupId>
+        <artifactId>enunciate-core-annotations</artifactId>
+        <version>${enunciate.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.webcohesion.enunciate</groupId>
+        <artifactId>enunciate-rt-util</artifactId>
+        <version>${enunciate.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.familysearch.standards</groupId>
+        <artifactId>std-lib-core-api</artifactId>
+        <version>${std-lib-core-api.version}}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${spring-jdbc.vesion}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>${postgresql.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.familysearch.sas</groupId>
+        <artifactId>sas-client</artifactId>
+        <version>${sas-client.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.familysearch.engage</groupId>
+        <artifactId>foundation-commons-sas-dbcp</artifactId>
+        <version>${engage-all.version}</version>
+      </dependency>
+    </dependencies>
+
+  </dependencyManagement>
+</project>
