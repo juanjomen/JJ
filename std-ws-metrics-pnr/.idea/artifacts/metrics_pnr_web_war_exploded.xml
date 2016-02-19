@@ -34,7 +34,6 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-core:4.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.1.6.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.1.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.postgresql:postgresql:9.4-1201-jdbc41" />
           <element id="library" level="project" name="Maven: org.familysearch.sas:sas-client:1.37.b189" />
           <element id="library" level="project" name="Maven: org.familysearch.engage:foundation-commons-sas-dbcp:1.1.b199" />
@@ -45,6 +44,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.2.3.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-web:4.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.glassfish:javax.servlet:3.1" />
           <element id="archive" name="metrics-pnr-model-1.0-SNAPSHOT.jar">

@@ -111,7 +111,6 @@
             <groupId>com.webcohesion.enunciate</groupId>
             <artifactId>enunciate-rt-util</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.familysearch.standards</groupId>
             <artifactId>metrics-pnr-api</artifactId>
@@ -142,6 +141,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>4.2.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version> 4.2.3.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

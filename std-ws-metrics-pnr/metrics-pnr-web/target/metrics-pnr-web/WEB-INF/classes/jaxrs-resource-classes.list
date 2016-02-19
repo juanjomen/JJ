@@ -1,0 +1,4 @@
+org.glassfish.jersey.server.wadl.internal.WadlResource
+org.familysearch.standards.services.MyResource
+org.familysearch.standards.services.WebServiceTruthSet
+org.familysearch.standards.services.WebServiceHealthCheck
