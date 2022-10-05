@@ -33,7 +33,7 @@
     <std-lib-place-data-db.version>2.0.2.b32</std-lib-place-data-db.version>
     <std-lib-place-data-load.version>2.0.2.b32</std-lib-place-data-load.version>
     <jackson.version>1.9.13</jackson.version>
-    <spring.version>3.2.8.RELEASE</spring.version>
+    <spring.version>5.2.22.RELEASE</spring.version>
     <jacoco-maven-plugin.version>0.7.0.201403182114</jacoco-maven-plugin.version>
     <jersey.version>1.18.1</jersey.version>
     <sonar-maven-plugin.version>4.2</sonar-maven-plugin.version>
